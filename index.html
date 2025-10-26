@@ -730,6 +730,8 @@
             position: relative;
             max-width: 800px;
             width: 90%;
+            height: 40%;
+            max-width: 600px;
             background-color: var(--accent-color);
             border-radius: 10px;
             overflow: hidden;
@@ -1145,11 +1147,11 @@
                     <div class="contact-details">
                         <div class="contact-detail">
                             <i class="fas fa-envelope"></i>
-                            <p>contato@alexandredomingues.com</p>
+                            <p>alexandre.domingues0100@gmail.com</p>
                         </div>
                         <div class="contact-detail">
                             <i class="fas fa-phone"></i>
-                            <p>(11) 99999-9999</p>
+                            <p>(53) 98441-5919</p>
                         </div>
                         <div class="contact-detail">
                             <i class="fas fa-map-marker-alt"></i>
@@ -1164,20 +1166,20 @@
                     </div>
                 </div>
                 <div class="contact-form fade-in">
-                    <form id="contactForm">
+                    <form id="contactForm" action="enviar.php" method="POST">
                         <div class="form-group">
                             <label for="name">Nome</label>
-                            <input type="text" id="name" class="form-control" placeholder="Seu nome completo">
+                            <input type="text" id="name" class="form-control" name="nome" placeholder="Seu nome completo" required>
                             <div class="error" id="nameError">Por favor, insira seu nome</div>
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input type="email" id="email" class="form-control" placeholder="seu@email.com">
+                            <input type="email" id="email" class="form-control" name="email" placeholder="seu@email.com" required>
                             <div class="error" id="emailError">Por favor, insira um e-mail válido</div>
                         </div>
                         <div class="form-group">
                             <label for="message">Mensagem</label>
-                            <textarea id="message" class="form-control" placeholder="Descreva seu projeto..."></textarea>
+                            <textarea id="mensagem" name="mensagem" class="form-control" placeholder="Descreva seu projeto..." required></textarea>
                             <div class="error" id="messageError">Por favor, insira uma mensagem</div>
                         </div>
                         <button type="submit" class="btn">Enviar Mensagem</button>
@@ -1219,7 +1221,7 @@
     </footer>
 
     <!-- WhatsApp Button -->
-    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de solicitar um orçamento." class="whatsapp-btn" target="_blank">
+    <a href="https://wa.me/5553984415919?text=Olá! Gostaria de solicitar um orçamento." class="whatsapp-btn" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
