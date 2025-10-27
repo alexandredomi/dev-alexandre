@@ -8,7 +8,7 @@
     <meta name="keywords" content="desenvolvedor front-end, freelancer, criação de sites, web design, HTML, CSS, JavaScript">
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+    <link rel="shortcut icon" href="img/five icon.png" type="image/x-icon">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- link emailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
+
         /* Reset e configurações globais */
         * {
             margin: 0;
@@ -173,7 +176,7 @@
             color: var(--primary-color);
         }
 
-        .logo a{
+        .logo i{
             padding: 0px auto;
         }
 
@@ -567,6 +570,92 @@
             font-size: 0.9rem;
             margin-top: 5px;
             display: none;
+        }
+
+        /* css form */
+
+        .contact-form {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(89, 0, 255, 0.3);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .btn:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            color: #28a745;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Footer */
@@ -1166,23 +1255,33 @@
                     </div>
                 </div>
                 <div class="contact-form fade-in">
-                    <form id="contactForm" action="enviar.php" method="POST">
+                    <h2>Entre em Contato</h2>
+                    <form id="contactForm">
                         <div class="form-group">
-                            <label for="name">Nome</label>
+                            <label for="name">Nome *</label>
                             <input type="text" id="name" class="form-control" name="nome" placeholder="Seu nome completo" required>
                             <div class="error" id="nameError">Por favor, insira seu nome</div>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="email">E-mail</label>
+                            <label for="email">E-mail *</label>
                             <input type="email" id="email" class="form-control" name="email" placeholder="seu@email.com" required>
                             <div class="error" id="emailError">Por favor, insira um e-mail válido</div>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="message">Mensagem</label>
+                            <label for="message">Mensagem *</label>
                             <textarea id="mensagem" name="mensagem" class="form-control" placeholder="Descreva seu projeto..." required></textarea>
                             <div class="error" id="messageError">Por favor, insira uma mensagem</div>
                         </div>
-                        <button type="submit" class="btn">Enviar Mensagem</button>
+                        
+                        <button type="submit" class="btn" id="submitBtn">
+                            <span class="btn-text">Enviar Mensagem</span>
+                        </button>
+                        
+                        <div class="success-message" id="successMessage">
+                            Mensagem enviada com sucesso! Entrarei em contato em breve.
+                        </div>
                     </form>
                 </div>
             </div>
@@ -1209,9 +1308,9 @@
                 </div>
                 <div class="footer-contact">
                     <h3>Contato</h3>
-                    <p><i class="fas fa-envelope"></i> contato@alexandredomingues.com</p>
-                    <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
-                    <p><i class="fas fa-map-marker-alt"></i> São Paulo, SP</p>
+                    <p><i class="fas fa-envelope"></i> alexandre.domingues0100@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> (53) 98441-5919</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Pelotas, RS</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1237,7 +1336,146 @@
             <img src="" alt="" class="modal-img">
         </div>
     </div>
-
+    <script>
+        // Inicialize o EmailJS com sua Public Key
+        emailjs.init("4BVJWCO3CGPouk4Kv"); // ← Substitua pela sua Public Key
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Esconder erros anteriores e mensagem de sucesso
+            hideAllErrors();
+            hideSuccessMessage();
+            
+            // Validar campos
+            if (validateForm()) {
+                // Desabilitar botão e mostrar loading
+                const submitBtn = document.getElementById('submitBtn');
+                const btnText = submitBtn.querySelector('.btn-text');
+                btnText.textContent = 'Enviando...';
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<div class="loading"></div>Enviando...';
+                
+                // Coletar dados do formulário
+                const formData = {
+                    from_name: document.getElementById('name').value.trim(),
+                    from_email: document.getElementById('email').value.trim(),
+                    message: document.getElementById('mensagem').value.trim(),
+                    date_time: new Date().toLocaleString('pt-BR')
+                };
+                
+                // Enviar email usando EmailJS
+                sendEmail(formData, submitBtn, btnText);
+            }
+        });
+        
+        function validateForm() {
+            let isValid = true;
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('mensagem').value.trim();
+            
+            // Validar nome
+            if (name === '') {
+                showError('nameError');
+                isValid = false;
+            }
+            
+            // Validar email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('emailError');
+                isValid = false;
+            }
+            
+            // Validar mensagem
+            if (message === '') {
+                showError('messageError');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showError(errorId) {
+            document.getElementById(errorId).style.display = 'block';
+        }
+        
+        function hideAllErrors() {
+            const errors = document.querySelectorAll('.error');
+            errors.forEach(error => {
+                error.style.display = 'none';
+            });
+        }
+        
+        function showSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'block';
+        }
+        
+        function hideSuccessMessage() {
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        function sendEmail(formData, submitBtn, btnText) {
+            // SUBSTITUA ESTES VALORES PELOS SEUS!
+            const serviceID = 'service_i6ywyyv'; // ← Seu Service ID
+            const templateID = 'template_u1izun5'; // ← Seu Template ID
+            
+            emailjs.send(serviceID, templateID, formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Mostrar mensagem de sucesso
+                    showSuccessMessage();
+                    
+                    // Resetar formulário
+                    document.getElementById('contactForm').reset();
+                    
+                    // Restaurar botão
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span class="btn-text">Enviar Mensagem</span>';
+                    
+                    // Rolagem suave para a mensagem de sucesso
+                    document.getElementById('successMessage').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    
+                    alert('Erro ao enviar mensagem: ' + JSON.stringify(error));
+                    
+                    // Restaurar botão
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span class="btn-text">Tentar Novamente</span>';
+                });
+        }
+        
+        // Validação em tempo real
+        document.getElementById('name').addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                showError('nameError');
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+        });
+        
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(this.value.trim())) {
+                showError('emailError');
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+        });
+        
+        document.getElementById('mensagem').addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                showError('messageError');
+            } else {
+                document.getElementById('messageError').style.display = 'none';
+            }
+        });
+    </script>
     <script>
         // Menu Mobile Toggle
         const hamburger = document.querySelector('.hamburger');
