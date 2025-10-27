@@ -71,6 +71,22 @@
             position: relative;
         }
 
+        .sub-titulo{
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .sub-titulo::after{
+            content: none;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+
         h2::after {
             content: '';
             position: absolute;
@@ -242,6 +258,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 1s forwards 0.5s;
+            padding-top: 50px;
         }
 
         .hero h1 {
@@ -283,10 +300,11 @@
             width: 100%;
             height: auto;
             transition: var(--transition);
+            transform: scale(1.05);
         }
 
         .about-img:hover img {
-            transform: scale(1.05);
+            transform: scale(1.10);
         }
 
         .about-content h2 {
@@ -1050,7 +1068,7 @@
                     <img src="img/WhatsApp Image 2025-10-23 at 15.37.20.jpeg" alt="Alexandre Domingues">
                 </div>
                 <div class="about-content">
-                    <h2>Alexandre Domingues</h2>
+                    <h2 class="sub-titulo">Alexandre Domingues</h2>
                     <p>Desenvolvedor Front-end com mais de 5 anos de experiência na criação de interfaces web modernas e responsivas. Especializado em HTML, CSS e JavaScript, com foco em performance, acessibilidade e experiência do usuário.</p>
                     <p>Minha missão é transformar ideias em experiências digitais que não apenas impressionam visualmente, mas também geram resultados tangíveis para os negócios dos meus clientes.</p>
                     <p>Com formação em Análise e Desenvolvimento de Sistemas e diversas certificações em tecnologias front-end, mantenho-me sempre atualizado com as últimas tendências e melhores práticas do mercado.</p>
@@ -1255,7 +1273,7 @@
                     </div>
                 </div>
                 <div class="contact-form fade-in">
-                    <h2>Entre em Contato</h2>
+                    <h2 class="sub-titulo">Entre em Contato</h2>
                     <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Nome *</label>
